@@ -39,6 +39,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * For a given BLE device, this Activity provides the user interface to connect, display data,
@@ -118,17 +119,24 @@ public class DeviceControlActivity extends Activity {
 
                 Context appCtx = getApplicationContext();
 
-                String message = "";
+//                String message = "";
+//
+//                if(sensorData.type.equals(sensorData.TYPE_ACCEL)){
+//                    message = sensorData.type + " " + sensorData.accel.x + " " + sensorData.accel.y + " " + sensorData.accel.z;
+//                }
+//                if(sensorData.type.equals(sensorData.TYPE_GYRO)){
+//                    message = sensorData.type + " " + sensorData.gyro.x + " " + sensorData.gyro.y + " " + sensorData.gyro.z;
+//                }
 
-                if(sensorData.type.equals(sensorData.TYPE_ACCEL)){
-                    message = sensorData.type + " " + sensorData.accel.x + " " + sensorData.accel.y + " " + sensorData.accel.z;
-                }
-                if(sensorData.type.equals(sensorData.TYPE_GYRO)){
-                    message = sensorData.type + " " + sensorData.gyro.x + " " + sensorData.gyro.y + " " + sensorData.gyro.z;
+                Random r = new Random();
+                if(r.nextInt(1000) > 990) {
+                    BraceApi api = new BraceApi();
+
+                    api.postData(sensorData);
                 }
 
-                Toast toast = Toast.makeText(appCtx, message, Toast.LENGTH_SHORT);
-                toast.show();
+//                Toast toast = Toast.makeText(appCtx, message, Toast.LENGTH_SHORT);
+//                toast.show();
             }
         }
     };

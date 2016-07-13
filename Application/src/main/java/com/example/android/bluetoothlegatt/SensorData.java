@@ -38,6 +38,8 @@ public class SensorData {
 
         byte bitmask = data[0];
 
+        // fix sign errors
+
         int x = ((int)data[2]) << 8 | ((int)data[1]);
         int y = ((int)data[4]) << 8 | ((int)data[3]);
         int z = ((int)data[6]) << 8 | ((int)data[5]);

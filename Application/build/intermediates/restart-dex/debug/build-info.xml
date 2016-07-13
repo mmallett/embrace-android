@@ -4,15 +4,16 @@
     api-level="22"
     density="xxhdpi"
     format="7"
-    timestamp="17195280660684"
-    token="4334006365179289153" >
+    timestamp="24463744744781"
+    token="4334006365179289153"
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="88" />
+        duration="69" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="297" />
     <task
         name="instant-run-transform"
         duration="4" />
@@ -21,13 +22,41 @@
         duration="1" />
 
     <artifact
-        location="/Users/matt/AndroidStudioProjects/Brace/Application/build/outputs/apk/Application-debug.apk"
-        type="MAIN" />
+        location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/reload-dex/debug/classes.dex"
+        type="RELOAD_DEX" />
 
-    <build timestamp="17195280660684" >
+    <build timestamp="23957659038004" >
         <artifact
             location="/Users/matt/AndroidStudioProjects/Brace/Application/build/outputs/apk/Application-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="24107680988820"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/builds/debug/24107680988820/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="24295320801003"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/builds/debug/24295320801003/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="24340313249720"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/builds/debug/24340313249720/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="24463744744781"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/reload-dex/debug/classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

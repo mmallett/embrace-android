@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,7 +109,26 @@ public class DeviceControlActivity extends Activity {
                 // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
+
                 displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+
+
+                byte[] bytes = intent.getByteArrayExtra(BluetoothLeService.BYTE_DATA);
+                SensorData sensorData = new SensorData(bytes);
+
+                Context appCtx = getApplicationContext();
+
+                String message = "";
+
+                if(sensorData.type.equals(sensorData.TYPE_ACCEL)){
+                    message = sensorData.type + " " + sensorData.accel.x + " " + sensorData.accel.y + " " + sensorData.accel.z;
+                }
+                if(sensorData.type.equals(sensorData.TYPE_GYRO)){
+                    message = sensorData.type + " " + sensorData.gyro.x + " " + sensorData.gyro.y + " " + sensorData.gyro.z;
+                }
+
+                Toast toast = Toast.makeText(appCtx, message, Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     };

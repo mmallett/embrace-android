@@ -1,0 +1,5 @@
+CHANGED,/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/example/android/bluetoothlegatt/BluetoothLeService$LocalBinder$override.class
+CHANGED,/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/example/android/bluetoothlegatt/BluetoothLeService$override.class
+CHANGED,/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/example/android/bluetoothlegatt/SampleGattAttributes$override.class
+CHANGED,/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/android/tools/fd/runtime/AppPatchesLoaderImpl.class
+CHANGED,/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/example/android/bluetoothlegatt/BluetoothLeService$1$override.class

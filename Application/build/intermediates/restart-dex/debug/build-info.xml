@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="armeabi-v7a,armeabi"
+    api-level="22"
+    density="xxhdpi"
+    format="7"
+    timestamp="13820742829495"
+    token="4334006365179289153" >
+
+    <task
+        name="javac"
+        duration="301" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="40" />
+    <task
+        name="verifier"
+        duration="14" />
+
+    <artifact
+        location="/Users/matt/AndroidStudioProjects/Brace/Application/build/outputs/apk/Application-debug.apk"
+        type="MAIN" />
+
+    <build timestamp="13820742829495" >
+        <artifact
+            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/outputs/apk/Application-debug.apk"
+            type="MAIN" />
+    </build>
+
+</instant-run>

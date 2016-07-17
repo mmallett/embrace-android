@@ -1,5 +1,7 @@
 package com.example.android.bluetoothlegatt;
 
+import android.util.Log;
+
 /**
  * Created by matt on 7/13/16.
  */
@@ -36,6 +38,16 @@ public class SensorData {
 
     private void parseData(){
 
+        StringBuilder b = new StringBuilder();
+
+        b.append(data.length);
+        b.append(" ");
+
+        for(byte by : data){
+            b.append(Integer.toHexString(by));
+            b.append(" ");
+        }
+
         byte bitmask = data[0];
 
         // fix sign errors
@@ -46,14 +58,24 @@ public class SensorData {
 
         Vector v = new Vector(x,y,z);
 
-        if((bitmask & SENSOR_FLAG_ACCEL) > 0){
-            accel = v;
+        if(((bitmask & SENSOR_FLAG_ACCEL) > 0) && ((bitmask & SENSOR_FLAG_GYRO) > 0)){
             type = TYPE_ACCEL;
-        }
 
-        else if((bitmask & SENSOR_FLAG_GYRO) > 0){
-            gyro = v;
-            type = TYPE_GYRO;
+            accel = new Vector(
+                leint16(data[1], data[2]),
+                leint16(data[3], data[4]),
+                leint16(data[5], data[6])
+            );
+
+            gyro = new Vector(
+                leint16(data[7], data[8]),
+                leint16(data[9], data[10]),
+                leint16(data[11], data[12])
+            );
+
+            Log.d("PARSE DATA", "ACCEL " + accel.toString());
+            Log.d("PARSE DATA", "GYRO " + gyro.toString());
+
         }
 
         else{
@@ -61,6 +83,22 @@ public class SensorData {
         }
 
 
+
+    }
+
+    private int leint16(byte a, byte b){
+
+        int top = ((int) b) << 8;
+        int bot = ((int) a) & 0x0F;
+
+        return top | bot;
+
+    }
+
+    private int uint8(byte b){
+
+        int i = ((int) b) & 0x0F;
+        return i;
 
     }
 

@@ -42,21 +42,21 @@ public class BraceApi {
             JSONObject json = new JSONObject();
             json.put("time", System.currentTimeMillis());
 
-            if(data.type.equals(SensorData.TYPE_GYRO)){
-                json.put("gyro_x", data.gyro.x);
-                json.put("gyro_y", data.gyro.y);
-                json.put("gyro_z", data.gyro.z);
-            }
-            else if(data.type.equals(SensorData.TYPE_ACCEL)){
+            if(data.type.equals(SensorData.TYPE_ACCEL)){
                 json.put("accel_x", data.accel.x);
                 json.put("accel_y", data.accel.y);
                 json.put("accel_z", data.accel.z);
+                json.put("gyro_x", data.gyro.x);
+                json.put("gyro_y", data.gyro.y);
+                json.put("gyro_z", data.gyro.z);
+                json.put("label", data.label);
+                json.put("device", data.device);
+
+                HttpTask http = new HttpTask();
+
+                http.execute(json);
             }
 
-
-            HttpTask http = new HttpTask();
-
-            http.execute(json);
 
 //            OutputStreamWriter w = new OutputStreamWriter(con.getOutputStream());
 //            w.write(json.toString());

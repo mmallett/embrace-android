@@ -115,18 +115,8 @@ public class DeviceControlActivity extends Activity {
 
 
                 byte[] bytes = intent.getByteArrayExtra(BluetoothLeService.BYTE_DATA);
-                SensorData sensorData = new SensorData(bytes);
+                SensorData sensorData = new SensorData(bytes, "default", mDeviceAddress);
 
-                Context appCtx = getApplicationContext();
-
-//                String message = "";
-//
-//                if(sensorData.type.equals(sensorData.TYPE_ACCEL)){
-//                    message = sensorData.type + " " + sensorData.accel.x + " " + sensorData.accel.y + " " + sensorData.accel.z;
-//                }
-//                if(sensorData.type.equals(sensorData.TYPE_GYRO)){
-//                    message = sensorData.type + " " + sensorData.gyro.x + " " + sensorData.gyro.y + " " + sensorData.gyro.z;
-//                }
 
                 Random r = new Random();
                 if(r.nextInt(1000) > 990) {
@@ -135,8 +125,6 @@ public class DeviceControlActivity extends Activity {
                     api.postData(sensorData);
                 }
 
-//                Toast toast = Toast.makeText(appCtx, message, Toast.LENGTH_SHORT);
-//                toast.show();
             }
         }
     };

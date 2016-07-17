@@ -25,11 +25,18 @@ public class SensorData {
 
     public String type;
 
+    public String label;
+
+    public String device;
 
 
-    public SensorData(byte[] data){
+
+    public SensorData(byte[] data, String label, String device){
 
         this.data = data;
+
+        this.label = label;
+        this.device = device;
 
         parseData();
 

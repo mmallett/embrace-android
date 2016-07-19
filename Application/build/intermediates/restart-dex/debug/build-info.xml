@@ -4,44 +4,30 @@
     api-level="22"
     density="xxhdpi"
     format="7"
-    timestamp="72536857388463"
-    token="4334006365179289153"
-    verifier="R_CLASS_CHANGE" >
+    timestamp="101361610384081"
+    token="4334006365179289153" >
 
     <task
         name="javac"
-        duration="81" />
+        duration="122" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="33" />
+        duration="18" />
     <task
         name="verifier"
         duration="2" />
 
     <artifact
-        location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/res/resources-debug.ap_"
-        type="RESOURCES" />
-    <artifact
-        location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex"
-        type="DEX" />
+        location="/Users/matt/AndroidStudioProjects/Brace/Application/build/outputs/apk/Application-debug.apk"
+        type="MAIN" />
 
-    <build timestamp="69506341853520" >
+    <build timestamp="101361610384081" >
         <artifact
             location="/Users/matt/AndroidStudioProjects/Brace/Application/build/outputs/apk/Application-debug.apk"
             type="MAIN" />
-    </build>
-    <build
-        timestamp="72536857388463"
-        verifier="R_CLASS_CHANGE" >
-        <artifact
-            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/res/resources-debug.ap_"
-            type="RESOURCES" />
-        <artifact
-            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/transforms/dex/debug/folders/1000/5/slice_1/classes.dex"
-            type="DEX" />
     </build>
 
 </instant-run>

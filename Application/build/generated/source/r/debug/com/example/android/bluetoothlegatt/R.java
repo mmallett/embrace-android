@@ -140,9 +140,9 @@ containing a value of this type.
         public static final int tile=0x7f020001;
     }
     public static final class id {
+        public static final int btn_collect=0x7f090005;
         public static final int btn_connect_1=0x7f090000;
         public static final int btn_connect_2=0x7f090001;
-        public static final int btn_update_label=0x7f090005;
         public static final int connection_state=0x7f090007;
         public static final int data_value=0x7f090008;
         public static final int device_address=0x7f090006;

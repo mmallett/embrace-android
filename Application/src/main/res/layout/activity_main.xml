@@ -49,17 +49,17 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edit_label"
+        android:layout_marginTop="20dp"
+        android:text="default_label"
         android:layout_below="@+id/txt_2"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="32dp"
-        android:text="DefaultLabel" />
+        android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Update Label"
-        android:id="@+id/btn_update_label"
-        android:layout_below="@+id/edit_label"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClickUpdate" />
+        android:text="Collect Data"
+        android:id="@+id/btn_collect"
+        android:onClick="onClickCollect"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

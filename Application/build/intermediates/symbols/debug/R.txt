@@ -27,9 +27,9 @@ int dimen margin_tiny 0x7f04000b
 int dimen vertical_page_margin 0x7f040001
 int drawable ic_launcher 0x7f020000
 int drawable tile 0x7f020001
+int id btn_collect 0x7f090005
 int id btn_connect_1 0x7f090000
 int id btn_connect_2 0x7f090001
-int id btn_update_label 0x7f090005
 int id connection_state 0x7f090007
 int id data_value 0x7f090008
 int id device_address 0x7f090006

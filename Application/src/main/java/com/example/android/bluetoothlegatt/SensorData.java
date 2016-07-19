@@ -80,9 +80,6 @@ public class SensorData {
                 leint16(data[11], data[12])
             );
 
-            Log.d("PARSE DATA", "ACCEL " + accel.toString());
-            Log.d("PARSE DATA", "GYRO " + gyro.toString());
-
         }
 
         else{

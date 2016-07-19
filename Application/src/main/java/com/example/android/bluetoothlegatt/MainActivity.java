@@ -30,13 +30,17 @@ public class MainActivity extends Activity {
     private String mAddress1 = null;
     private String mBaseText1 = null;
     private String mAddress2 = null;
+    private String mBaseText2 = null;
     private String mLabel = "default_label";
 
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
 
-    private BluetoothGatt mBluetoothGatt;
-    private int mConnectionState = STATE_DISCONNECTED;
+    private BluetoothGatt mSensor1;
+    private int mSensor1State = STATE_DISCONNECTED;
+
+    private BluetoothGatt mSensor2;
+    private int mSensor2State = STATE_DISCONNECTED;
 
     private static final int STATE_DISCONNECTED = 0;
     private static final int STATE_CONNECTING = 1;
@@ -63,22 +67,21 @@ public class MainActivity extends Activity {
         deadlyIntent(2);
     }
 
-    public void onClickCollect(View v){
+    public void onClickUpdateLabel(View v){
         EditText e = (EditText) findViewById(R.id.edit_label);
         mLabel = e.getText().toString();
 
-//        if(mAddress1 == null || mAddress2 == null){
-//            toast("Sensors not connected!");
-//
-//            return;
-//        }
+    }
 
-//        Intent serviceIntent = new Intent(getBaseContext(), BleService.class);
-//        serviceIntent.putExtra("ADDRESS_1", mAddress1);
-//        serviceIntent.putExtra("ADDRESS_2", mAddress2);
-//        serviceIntent.putExtra("LABEL", mLabel);
-//
-//        startService(serviceIntent);
+    public void onClickDisconnect(View v){
+        if(mSensor1 != null){
+            mSensor1.disconnect();
+            statusText1("disconnected");
+        }
+        if(mSensor2 != null){
+            mSensor2.disconnect();
+            statusText2("disconnected");
+        }
     }
 
     private void deadlyIntent(int i){
@@ -104,13 +107,14 @@ public class MainActivity extends Activity {
                 if (device == null) {
                     Log.w(TAG, "Device not found.  Unable to connect.");
                     statusText1("can't find device");
+                    return;
 //            return false;
                 }
                 // We want to directly connect to the device, so we are setting the autoConnect
                 // parameter to false.
-                mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
+                mSensor1 = device.connectGatt(this, false, mGattCallback);
                 Log.d(TAG, "Trying to create a new connection.");
-                mConnectionState = STATE_CONNECTING;
+                mSensor1State = STATE_CONNECTING;
 
             }
 
@@ -118,10 +122,24 @@ public class MainActivity extends Activity {
                 String name = data.getStringExtra("DEVICE_NAME");
                 String address = data.getStringExtra("DEVICE_ADDRESS");
 
-                TextView t = (TextView) findViewById(R.id.txt_2);
-                t.setText("[2] " + name + " " + address);
+                mBaseText2 = "[2] " + name + " " + address + " ";
+
+                statusText2("connecting..");
 
                 mAddress2 = address;
+
+                final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(mAddress2);
+                if (device == null) {
+                    Log.w(TAG, "Device not found.  Unable to connect.");
+                    statusText1("can't find device");
+                    return;
+//            return false;
+                }
+                // We want to directly connect to the device, so we are setting the autoConnect
+                // parameter to false.
+                mSensor2 = device.connectGatt(this, false, mGattCallback2);
+                Log.d(TAG, "Trying to create a new connection.");
+                mSensor2State = STATE_CONNECTING;
             }
         }
 
@@ -164,6 +182,19 @@ public class MainActivity extends Activity {
             }
         });
 
+    }
+
+    private void statusText2(String status){
+
+        final String status2 = status;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView t = (TextView) findViewById(R.id.txt_2);
+                t.setText(mBaseText2 + status2);
+            }
+        });
 
     }
 
@@ -171,16 +202,16 @@ public class MainActivity extends Activity {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             if (newState == BluetoothProfile.STATE_CONNECTED) {
-                mConnectionState = STATE_CONNECTED;
+                mSensor1State = STATE_CONNECTED;
                 Log.i(TAG, "Connected to GATT server.");
                 statusText1("connected");
 
                 // Attempts to discover services after successful connection.
                 Log.i(TAG, "Attempting to start service discovery:" +
-                        mBluetoothGatt.discoverServices());
+                        mSensor1.discoverServices());
 
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                mConnectionState = STATE_DISCONNECTED;
+                mSensor1State = STATE_DISCONNECTED;
                 Log.i(TAG, "Disconnected from GATT server.");
                 statusText1("disconnected");
             }
@@ -190,7 +221,7 @@ public class MainActivity extends Activity {
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 Log.w(TAG, "onServicesDiscovered received: " + status);
-                List<BluetoothGattService> services = mBluetoothGatt.getServices();
+                List<BluetoothGattService> services = mSensor1.getServices();
                 for(BluetoothGattService service : services){
                     if(service.getUuid().toString().equals(WICED_SERVICE)){
                         Log.w(TAG, "found the wiced service");
@@ -198,11 +229,11 @@ public class MainActivity extends Activity {
                         for(BluetoothGattCharacteristic c : chars){
                             if(c.getUuid().toString().equals(WICED_CHAR)){
                                 Log.w(TAG, "found the wiced char");
-                                mBluetoothGatt.setCharacteristicNotification(c, true);
+                                mSensor1.setCharacteristicNotification(c, true);
                                 BluetoothGattDescriptor descriptor = c.getDescriptor(
                                         UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
                                 descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-                                mBluetoothGatt.writeDescriptor(descriptor);
+                                mSensor1.writeDescriptor(descriptor);
 
                             }
 
@@ -215,28 +246,118 @@ public class MainActivity extends Activity {
             }
         }
 
-        @Override
-        public void onCharacteristicRead(BluetoothGatt gatt,
-                                         BluetoothGattCharacteristic characteristic,
-                                         int status) {
-            if (status == BluetoothGatt.GATT_SUCCESS) {
-                Log.w(TAG, "READ!");
-                StringBuilder sb = new StringBuilder();
-                byte[] bytes = characteristic.getValue();
-                for(byte b : bytes){
-                    sb.append(Integer.toHexString(b));
-                    sb.append(" ");
-                }
-                Log.w(TAG, sb.toString());
-            }
-            mBluetoothGatt.readCharacteristic(characteristic);
-        }
+//        @Override
+//        public void onCharacteristicRead(BluetoothGatt gatt,
+//                                         BluetoothGattCharacteristic characteristic,
+//                                         int status) {
+//            if (status == BluetoothGatt.GATT_SUCCESS) {
+//                Log.w(TAG, "READ!");
+//                StringBuilder sb = new StringBuilder();
+//                byte[] bytes = characteristic.getValue();
+//                for(byte b : bytes){
+//                    sb.append(Integer.toHexString(b));
+//                    sb.append(" ");
+//                }
+//                Log.w(TAG, sb.toString());
+//            }
+//            mSensor1.readCharacteristic(characteristic);
+//        }
 
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
 
-            Log.w(TAG, "UPDATE!");
+            Log.w(TAG, "UPDATE 1");
+//            StringBuilder sb = new StringBuilder();
+            byte[] bytes = characteristic.getValue();
+//            for(byte b : bytes){
+//                sb.append(Integer.toHexString(b));
+//                sb.append(" ");
+//            }
+//            Log.w(TAG, sb.toString());
+
+            SensorData sensorData = new SensorData(bytes, mLabel, mAddress1);
+
+            Random r = new Random();
+            if(r.nextInt(1000) > 990) {
+                BraceApi api = new BraceApi();
+
+                api.postData(sensorData);
+            }
+
+        }
+    };
+
+    private final BluetoothGattCallback mGattCallback2 = new BluetoothGattCallback() {
+        @Override
+        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            if (newState == BluetoothProfile.STATE_CONNECTED) {
+                mSensor2State = STATE_CONNECTED;
+                Log.i(TAG, "Connected to GATT server.");
+                statusText2("connected");
+
+                // Attempts to discover services after successful connection.
+                Log.i(TAG, "Attempting to start service discovery:" +
+                        mSensor2.discoverServices());
+
+            } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                mSensor2State = STATE_DISCONNECTED;
+                Log.i(TAG, "Disconnected from GATT server.");
+                statusText2("disconnected");
+            }
+        }
+
+        @Override
+        public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+                Log.w(TAG, "onServicesDiscovered received: " + status);
+                List<BluetoothGattService> services = mSensor2.getServices();
+                for(BluetoothGattService service : services){
+                    if(service.getUuid().toString().equals(WICED_SERVICE)){
+                        Log.w(TAG, "found the wiced service");
+                        List<BluetoothGattCharacteristic> chars = service.getCharacteristics();
+                        for(BluetoothGattCharacteristic c : chars){
+                            if(c.getUuid().toString().equals(WICED_CHAR)){
+                                Log.w(TAG, "found the wiced char");
+                                mSensor2.setCharacteristicNotification(c, true);
+                                BluetoothGattDescriptor descriptor = c.getDescriptor(
+                                        UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+                                descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                                mSensor2.writeDescriptor(descriptor);
+
+                            }
+
+                        }
+
+                    }
+                }
+            } else {
+                Log.w(TAG, "onServicesDiscovered received: " + status);
+            }
+        }
+//
+//        @Override
+//        public void onCharacteristicRead(BluetoothGatt gatt,
+//                                         BluetoothGattCharacteristic characteristic,
+//                                         int status) {
+//            if (status == BluetoothGatt.GATT_SUCCESS) {
+//                Log.w(TAG, "READ!");
+//                StringBuilder sb = new StringBuilder();
+//                byte[] bytes = characteristic.getValue();
+//                for(byte b : bytes){
+//                    sb.append(Integer.toHexString(b));
+//                    sb.append(" ");
+//                }
+//                Log.w(TAG, sb.toString());
+//            }
+//            mSensor1.readCharacteristic(characteristic);
+//        }
+
+        @Override
+        public void onCharacteristicChanged(BluetoothGatt gatt,
+                                            BluetoothGattCharacteristic characteristic) {
+
+            Log.w(TAG, "UPDATE 2");
             StringBuilder sb = new StringBuilder();
             byte[] bytes = characteristic.getValue();
             for(byte b : bytes){
@@ -245,7 +366,7 @@ public class MainActivity extends Activity {
             }
             Log.w(TAG, sb.toString());
 
-            SensorData sensorData = new SensorData(bytes, mLabel, mAddress1);
+            SensorData sensorData = new SensorData(bytes, mLabel, mAddress2);
 
             Random r = new Random();
             if(r.nextInt(1000) > 990) {

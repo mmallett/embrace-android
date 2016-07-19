@@ -57,9 +57,18 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Collect Data"
-        android:id="@+id/btn_collect"
-        android:onClick="onClickCollect"
+        android:text="Update Label"
+        android:id="@+id/btn_update_label"
+        android:onClick="onClickUpdateLabel"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Disconnect Sensors"
+        android:id="@+id/btn_disconnect"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onClickDisconnect" />
 </RelativeLayout>

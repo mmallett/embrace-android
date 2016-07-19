@@ -49,6 +49,8 @@ public class MainActivity extends Activity {
     private static final String WICED_SERVICE = SampleGattAttributes.WICED_DATA_SERVICE;
     private static final String WICED_CHAR = SampleGattAttributes.WICED_DATA_CHARACTERISTIC;
 
+    private static BraceApi mBraceApi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,8 @@ public class MainActivity extends Activity {
         if(!initBle()){
             Toast.makeText(getBaseContext(), "!", Toast.LENGTH_SHORT).show();
         }
+
+        mBraceApi = new BraceApi();
     }
 
     public void onClickBtn1(View v){
@@ -267,7 +271,7 @@ public class MainActivity extends Activity {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
 
-            Log.w(TAG, "UPDATE 1");
+//            Log.w(TAG, "UPDATE 1");
 //            StringBuilder sb = new StringBuilder();
             byte[] bytes = characteristic.getValue();
 //            for(byte b : bytes){
@@ -278,12 +282,7 @@ public class MainActivity extends Activity {
 
             SensorData sensorData = new SensorData(bytes, mLabel, mAddress1);
 
-            Random r = new Random();
-            if(r.nextInt(1000) > 990) {
-                BraceApi api = new BraceApi();
-
-                api.postData(sensorData);
-            }
+            mBraceApi.postData(sensorData);
 
         }
     };
@@ -357,23 +356,18 @@ public class MainActivity extends Activity {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
 
-            Log.w(TAG, "UPDATE 2");
-            StringBuilder sb = new StringBuilder();
+//            Log.w(TAG, "UPDATE 2");
+//            StringBuilder sb = new StringBuilder();
             byte[] bytes = characteristic.getValue();
-            for(byte b : bytes){
-                sb.append(Integer.toHexString(b));
-                sb.append(" ");
-            }
-            Log.w(TAG, sb.toString());
+//            for(byte b : bytes){
+//                sb.append(Integer.toHexString(b));
+//                sb.append(" ");
+//            }
+//            Log.w(TAG, sb.toString());
 
             SensorData sensorData = new SensorData(bytes, mLabel, mAddress2);
 
-            Random r = new Random();
-            if(r.nextInt(1000) > 990) {
-                BraceApi api = new BraceApi();
-
-                api.postData(sensorData);
-            }
+            mBraceApi.postData(sensorData);
 
         }
     };

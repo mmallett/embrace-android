@@ -3,11 +3,13 @@ package com.example.android.bluetoothlegatt;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.LinkedList;
 
 /**
  * Created by matt on 7/13/16.
@@ -18,14 +20,18 @@ public class BraceApi {
 
     private static final String tag = "BRACEAPI";
 
+    private JSONArray buffer;
+
     public BraceApi(){
+
+        buffer = new JSONArray();
 
     }
 
     public void postData(SensorData data){
 
         if(data.type.equals(SensorData.TYPE_NULL)){
-            Log.d(tag, "null data");
+//            Log.d(tag, "null data");
             return;
         }
 
@@ -39,10 +45,10 @@ public class BraceApi {
 //            con.setRequestMethod("POST");
 
 
-            JSONObject json = new JSONObject();
-            json.put("time", System.currentTimeMillis());
 
             if(data.type.equals(SensorData.TYPE_ACCEL)){
+                JSONObject json = new JSONObject();
+                json.put("time", Long.toString(System.currentTimeMillis()));
                 json.put("accel_x", data.accel.x);
                 json.put("accel_y", data.accel.y);
                 json.put("accel_z", data.accel.z);
@@ -52,9 +58,15 @@ public class BraceApi {
                 json.put("label", data.label);
                 json.put("device", data.device);
 
-                HttpTask http = new HttpTask();
+                buffer.put(json);
 
-                http.execute(json);
+                if(buffer.length() > 500){
+                    HttpTask http = new HttpTask();
+
+                    http.execute(buffer);
+                    buffer = new JSONArray();
+                }
+
             }
 
 
@@ -85,9 +97,11 @@ public class BraceApi {
 
             boolean ret = false;
 
+            Log.d(tag, "firing a volley");
+
             try{
-                URL url = new URL(HOST + "/");
-                JSONObject json = (JSONObject) args[0];
+                URL url = new URL(HOST + "/volley");
+                JSONArray json = (JSONArray) args[0];
 
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setDoOutput(true);
@@ -101,7 +115,7 @@ public class BraceApi {
                 w.write(json.toString());
                 w.flush();
 
-                Log.d(tag, json.toString());
+//                Log.d(tag, json.toString());
 
                 int responseCode = con.getResponseCode();
                 ret = responseCode == HttpURLConnection.HTTP_CREATED;
@@ -109,6 +123,8 @@ public class BraceApi {
                 Log.d(tag, Integer.toString(responseCode));
 
                 w.close();
+
+                Log.d(tag, "shot");
             }
             catch(Exception e){
 

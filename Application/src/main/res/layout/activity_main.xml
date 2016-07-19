@@ -60,8 +60,8 @@
         android:text="Update Label"
         android:id="@+id/btn_update_label"
         android:onClick="onClickUpdateLabel"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/edit_label"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="fill_parent"

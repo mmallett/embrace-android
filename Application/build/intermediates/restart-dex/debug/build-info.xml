@@ -4,30 +4,47 @@
     api-level="22"
     density="xxhdpi"
     format="7"
-    timestamp="103128247680980"
-    token="4334006365179289153" >
+    timestamp="106036666790017"
+    token="4334006365179289153"
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="95" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="320" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="5" />
     <task
         name="verifier"
-        duration="0" />
+        duration="1" />
 
     <artifact
-        location="/Users/matt/AndroidStudioProjects/Brace/Application/build/outputs/apk/Application-debug.apk"
-        type="MAIN" />
+        location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/reload-dex/debug/classes.dex"
+        type="RELOAD_DEX" />
 
-    <build timestamp="103128247680980" >
+    <build
+        timestamp="105526474214970"
+        verifier="COMPATIBLE" >
         <artifact
-            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/outputs/apk/Application-debug.apk"
-            type="MAIN" />
+            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/builds/debug/105526474214970/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="105886943849445"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/builds/debug/105886943849445/classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="106036666790017"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/reload-dex/debug/classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

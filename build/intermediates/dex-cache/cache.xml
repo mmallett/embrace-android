@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/exploded-aar/com.android.support/support-v13/23.3.0/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="8813bdcf7583107c4873150075d17c8072ec50cf">
+        <dex dex="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/pre-dexed/debug/internal_impl-23.3.0_22bb835a2073cfca11b05cf79a4ccd6365499d30.jar" />
+    </item>
+    <item
+        jar="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/exploded-aar/com.android.support/support-v13/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="a809555a2599054c3dcd1bf82b089315ac3a11df">
+        <dex dex="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/pre-dexed/debug/com.android.support-support-v13-23.3.0_419bafeebcef93613c900900a2c59725e96d2857.jar" />
+    </item>
+    <item
+        jar="/Users/matt/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.3.0/support-annotations-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/pre-dexed/debug/support-annotations-23.3.0_a001df79a63cebf88f3398f394ec19a1b075e51f.jar" />
+    </item>
+    <item
+        jar="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="82ce13fd19cdfde0e392f03c27edeba8d4333648">
+        <dex dex="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.3.0_5a0fd425b54334302abbac0089006ee4b3a79a2e.jar" />
+    </item>
+    <item
+        jar="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/libs/internal_impl-23.3.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/pre-dexed/debug/internal_impl-23.3.0_87f6dcbe894d614d379071df8de3d8cce0768f2a.jar" />
+    </item>
+    <item
+        jar="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/exploded-aar/com.android.support/support-v4/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="/Users/matt/AndroidStudioProjects/Brace/Application/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.3.0_67855c1c41db0d6aecb74b5a003d93d1ce535895.jar" />
+    </item>
+
+</items>

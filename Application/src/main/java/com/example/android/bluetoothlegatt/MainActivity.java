@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class MainActivity extends Activity {
     private String mAddress2 = null;
     private String mBaseText2 = null;
     private String mLabel = "default_label";
+    private boolean mStream = false;
 
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
@@ -71,9 +73,16 @@ public class MainActivity extends Activity {
         deadlyIntent(2);
     }
 
-    public void onClickUpdateLabel(View v){
+    public void onClickToggleStream(View v){
         EditText e = (EditText) findViewById(R.id.edit_label);
         mLabel = e.getText().toString();
+
+        mStream = !mStream;
+
+
+        String buttonText = (mStream) ? "Stop" : "Start";
+        ((Button) findViewById(R.id.btn_toggle_stream)).setText(buttonText);
+
 
     }
 
@@ -271,18 +280,21 @@ public class MainActivity extends Activity {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
 
+            if(mStream) {
+
 //            Log.w(TAG, "UPDATE 1");
 //            StringBuilder sb = new StringBuilder();
-            byte[] bytes = characteristic.getValue();
+                byte[] bytes = characteristic.getValue();
 //            for(byte b : bytes){
 //                sb.append(Integer.toHexString(b));
 //                sb.append(" ");
 //            }
 //            Log.w(TAG, sb.toString());
 
-            SensorData sensorData = new SensorData(bytes, mLabel, mAddress1);
+                SensorData sensorData = new SensorData(bytes, mLabel, mAddress1);
 
-            mBraceApi.postData(sensorData);
+                mBraceApi.postData(sensorData);
+            }
 
         }
     };
@@ -356,18 +368,21 @@ public class MainActivity extends Activity {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
 
+
+            if(mStream) {
 //            Log.w(TAG, "UPDATE 2");
 //            StringBuilder sb = new StringBuilder();
-            byte[] bytes = characteristic.getValue();
+                byte[] bytes = characteristic.getValue();
 //            for(byte b : bytes){
 //                sb.append(Integer.toHexString(b));
 //                sb.append(" ");
 //            }
 //            Log.w(TAG, sb.toString());
 
-            SensorData sensorData = new SensorData(bytes, mLabel, mAddress2);
+                SensorData sensorData = new SensorData(bytes, mLabel, mAddress2);
 
-            mBraceApi.postData(sensorData);
+                mBraceApi.postData(sensorData);
+            }
 
         }
     };

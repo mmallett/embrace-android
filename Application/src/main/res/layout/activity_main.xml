@@ -57,9 +57,9 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Update Label"
-        android:id="@+id/btn_update_label"
-        android:onClick="onClickUpdateLabel"
+        android:text="Start"
+        android:id="@+id/btn_toggle_stream"
+        android:onClick="onClickToggleStream"
         android:layout_below="@+id/edit_label"
         android:layout_alignParentStart="true" />
 
